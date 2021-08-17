@@ -1,5 +1,5 @@
 <template>
-  <el-button type="primary">el-button</el-button>
+  <router-view></router-view>
 </template>
 
 <script>
