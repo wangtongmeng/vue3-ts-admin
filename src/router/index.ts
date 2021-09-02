@@ -42,7 +42,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: '/system/user',
     meta: {
       title: 'System',
-      icon: 'lock'
+      icon: 'lock',
+      alwaysShow: true // 根路由始终显示 哪怕只有一个子路由
     },
     children: [
       {
@@ -50,14 +51,15 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "menu" */ '@/views/system/menu.vue'),
         meta: {
           title: 'Menu Management',
-          hidden: false
+          hidden: true
         }
       },
       {
         path: 'role',
         component: () => import(/* webpackChunkName: "role" */ '@/views/system/role.vue'),
         meta: {
-          title: 'Role Management'
+          title: 'Role Management',
+          hidden: true
         }
       },
       {
