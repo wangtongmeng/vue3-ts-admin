@@ -1,8 +1,8 @@
 <script lang="ts">
-import { h } from 'vue'
+import { defineComponent, h } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-export default {
+export default defineComponent({
   name: 'Redirect',
   setup() {
     console.log('redirect')
@@ -17,5 +17,5 @@ export default {
       return h('template')
     }
   }
-}
+})
 </script>
