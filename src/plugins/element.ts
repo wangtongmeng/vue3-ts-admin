@@ -8,6 +8,9 @@ import {
   ElMenu,
   ElMenuItem,
   ElSubmenu,
+  ElCol,
+  ElBreadcrumb,
+  ElBreadcrumbItem
 } from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 // Element Plus 组件内部默认使用英语
@@ -30,7 +33,10 @@ export default (app: App): void => {
     ElMessageBox,
     ElMenu,
     ElMenuItem,
-    ElSubmenu
+    ElSubmenu,
+    ElCol,
+    ElBreadcrumb,
+    ElBreadcrumbItem
   ]
 
   components.forEach(component => {
