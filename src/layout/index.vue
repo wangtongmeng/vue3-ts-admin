@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Sidebar from './components/Sidebar'
+import Sidebar from './components/Sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
 
 export default defineComponent({
