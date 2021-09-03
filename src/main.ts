@@ -14,15 +14,25 @@ import '@/styles/index.scss'
 import initSvgIcon from '@/icons/index'
 
 const app = createApp(App)
+// 获取store里存储的size
+const size = store.state.app.size
 
 app
   .use(store, key)
   .use(router)
-  .use(installElementPlus)
+  .use(installElementPlus, {
+    size
+  })
   .use(initSvgIcon)
   .mount('#app')
 
-// vue实例上挂载属性类型声明
+/**
+ * 相关issue问题
+ * Why not on the d.ts use it ?
+   (为什么不能在shims-d.ts 中设置这个？
+ * https://github.com/vuejs/vue-next/pull/982
+ */
+// 挂载到vue实例上
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $message: typeof ElMessage;
@@ -30,5 +40,8 @@ declare module '@vue/runtime-core' {
     $confirm: typeof ElMessageBox.confirm;
     $alert: typeof ElMessageBox.alert;
     $prompt: typeof ElMessageBox.prompt;
+    $ELEMENT: {
+      size: Size;
+    };
   }
 }
