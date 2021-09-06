@@ -15,7 +15,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: 'Documentation',
           icon: 'documentation',
-          hidden: false // 菜单栏不显示
+          hidden: false, // 菜单栏不显示
+          noCache: true // 路由不缓存
         }
       }
     ]
