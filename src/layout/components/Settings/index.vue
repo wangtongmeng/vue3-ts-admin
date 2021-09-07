@@ -9,6 +9,12 @@
       <span>Open Tags-View</span>
       <el-switch v-model="tagsView" class="drawer-switch" />
     </div>
+
+    <!-- 侧边栏logo  -->
+    <div class="drawer-item">
+      <span>Sidebar Logo</span>
+      <el-switch v-model="showSidebarLogo" class="drawer-switch" />
+    </div>
   </div>
 </template>
 
@@ -26,11 +32,9 @@ export default defineComponent({
     const store = useStore()
     const tagsView = computed({
       get() {
-        // 获取store中tagsView状态
         return store.state.settings.tagsView
       },
       set(val) {
-        // switch修改后 派发action同步store中tagsview值
         store.dispatch('settings/changeSetting', {
           key: 'tagsView',
           value: val
@@ -38,8 +42,21 @@ export default defineComponent({
       }
     })
 
+    const showSidebarLogo = computed({
+      get() {
+        return store.state.settings.sidebarLogo
+      },
+      set(val) {
+        store.dispatch('settings/changeSetting', {
+          key: 'sidebarLogo',
+          value: val
+        })
+      }
+    })
+
     return {
-      tagsView
+      tagsView,
+      showSidebarLogo
     }
   }
 })
