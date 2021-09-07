@@ -25,8 +25,9 @@ service.interceptors.response.use(response => {
     return Promise.reject(message)
   }
   return response.data
-}, error => {
+}, (error: Error) => {
   console.log('err' + error) // for debug
+  ElMessage.error(error.message)
   return Promise.reject(error)
 })
 

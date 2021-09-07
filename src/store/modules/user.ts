@@ -1,7 +1,7 @@
 import { Module, MutationTree, ActionTree } from 'vuex'
 import { IRootState } from '@/store'
 import { login } from '@/api/user'
-import { setToken } from '@/utils/auth'
+import { setToken, removeToken } from '@/utils/auth'
 
 // login params
 export interface IUserInfo {
@@ -46,6 +46,18 @@ const actions: IActions = {
       }).catch(error => {
         reject(error)
       })
+    })
+  },
+  logout({ commit, dispatch }) {
+    // 退出登录接口我这里就不写了
+    return new Promise<void>((resolve) => {
+      // 清空store里token
+      commit('SET_TOKEN', '')
+      // 清空localStorage里的token
+      removeToken()
+      // 清除所有tag views 派发的是全局action 需要 root: true
+      dispatch('tagsView/delAllViews', null, { root: true })
+      resolve()
     })
   }
 }
