@@ -16,7 +16,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
           title: 'Documentation',
           icon: 'documentation',
           hidden: false, // 菜单栏不显示
-          noCache: true // 路由不缓存
+          // 路由是否缓存 没有这个属性或false都会缓存 true不缓存
+          noCache: false
         }
       }
     ]
@@ -127,8 +128,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       hidden: true
     },
     children: [
-      {
-        // 带参数的动态路由正则匹配 文档说明
+      { // 带参数的动态路由正则匹配
         // https://next.router.vuejs.org/zh/guide/essentials/route-matching-syntax.html#%E5%8F%AF%E9%87%8D%E5%A4%8D%E7%9A%84%E5%8F%82%E6%95%B0
         path: '/redirect/:path(.*)', // 要匹配多级路由 应该加*号
         component: () => import('@/views/redirect/index.vue')
