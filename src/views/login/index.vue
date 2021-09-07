@@ -60,6 +60,7 @@ import { defineComponent, ref, reactive, toRefs, onMounted } from 'vue'
 import { ElForm } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
+import useRouteQuery from './hooks/useRouteQuery'
 
 type IElFormInstance = InstanceType<typeof ElForm>
 export default defineComponent({
@@ -104,15 +105,18 @@ export default defineComponent({
       loginState.passwordType = loginState.passwordType === 'password' ? 'text' : 'password'
     }
 
+    // 重定向router query处理
+    const { redirect, otherQuery } = useRouteQuery()
     // 登录
     const handleLogin = () => {
-      console.log('login')
-      ;(loginFormRef.value as IElFormInstance).validate((valid) => {
+      (loginFormRef.value as IElFormInstance).validate((valid) => {
         if (valid) {
           loading.value = true
           store.dispatch('user/login', loginState.loginForm).then(() => {
+            // 登录成功后跳转之前被访问页或首页
             router.push({
-              path: '/'
+              path: redirect.value || '/',
+              query: otherQuery.value
             })
           }).finally(() => {
             loading.value = false
