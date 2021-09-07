@@ -39,7 +39,6 @@ const actions: IActions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password }).then(response => {
         const { data } = response
-        console.log('data', data)
         commit('SET_TOKEN', data.token)
         setToken(data.token) // localStorage中保存token
         resolve(data)
@@ -55,8 +54,17 @@ const actions: IActions = {
       commit('SET_TOKEN', '')
       // 清空localStorage里的token
       removeToken()
-      // 清除所有tag views 派发的是全局action 需要 root: true
+      // 清除所有tag views
       dispatch('tagsView/delAllViews', null, { root: true })
+      resolve()
+    })
+  },
+  resetToken({ commit }) {
+    return new Promise<void>((resolve) => {
+      // 清空store里token
+      commit('SET_TOKEN', '')
+      // 清空localStorage里的token
+      removeToken()
       resolve()
     })
   }

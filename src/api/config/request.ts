@@ -1,6 +1,7 @@
-import axios from 'axios'
-import { getToken } from '../../utils/auth'
+import axios, { AxiosError } from 'axios'
 import { ElMessage } from 'element-plus'
+import { getToken } from '../../utils/auth'
+import store from '@/store'
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -25,8 +26,13 @@ service.interceptors.response.use(response => {
     return Promise.reject(message)
   }
   return response.data
-}, (error: Error) => {
-  console.log('err' + error) // for debug
+}, (error: AxiosError) => {
+  const res = error?.response
+  if (res && res.status === 401) { // 401 未登录 token失效
+    store.dispatch('user/resetToken').then(() => {
+      window.location.reload()
+    })
+  }
   ElMessage.error(error.message)
   return Promise.reject(error)
 })
